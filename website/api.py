@@ -2,6 +2,7 @@ from . import serializers, models
 from django.contrib.auth.models import User
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
+from django.http import JsonResponse
 from rest_framework import status
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
@@ -11,9 +12,15 @@ class Our_team(generics.ListCreateAPIView):
     queryset = models.Our_team.objects.all()
     serializer_class = serializers.Our_teamSerializer
     def post(self, request, *args, **kwargs):
-        user=User
+        user = request.POST.get('username')
+        users = User.objects.filter(username=user)
+        if not users.count() == 1:
+            datas = {'success': False, 'message': 'username is not correct'}
+            return JsonResponse(datas)
+        else:
+            user = users.first()
         Our_team = models.Our_team.objects.get(pk=self.kwargs["pk"])
-        if not request.user == user.username:
+        if not user.is_staff:
             raise PermissionDenied("You can not create a team.")
         return super().post(request, *args, **kwargs)
 
@@ -34,22 +41,17 @@ class Contact_info(generics.ListCreateAPIView):
     serializer_class = serializers.Contact_infoSerializer
     def post(self, request, *args, **kwargs):
         user=User
-        about = models.Contact_info.objects.get(pk=self.kwargs["pk"])
+        info = models.Contact_info.objects.get(pk=self.kwargs["pk"])
         if not request.user == user.username:
             raise PermissionDenied("You can not create a contact_info.")
         return super().post(request, *args, **kwargs)
 
-class ContactViewSet(viewsets.ModelViewSet):
+class Contact(generics.CreateAPIView):
     queryset = models.Contact.objects.all()
     serializer_class = serializers.ContactSerializer
-    def destroy(self, request, *args, **kwargs):
-        user=User
-        contact = models.Contact.objects.get(pk=self.kwargs["pk"])
-        if not request.user == user.username:
-            raise PermissionDenied("You can not delete this Contact.")
-        return super().destroy(request, *args, **kwargs)
+    
 
-class Newletter(generics.RetrieveDestroyAPIView):
+class Newletter(generics.CreateAPIView):
     queryset = models.Newletter.objects.all()
     serializer_class = serializers.NewletterSerializer
     def destroy(self, request, *args, **kwargs):

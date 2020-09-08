@@ -21,9 +21,7 @@ class Siteinfo(models.Model):
     image_video_footer =models.ImageField(upload_to='image/footer')
     lien_video_footer = models.URLField(max_length=200)
     bg_index = models.ImageField(upload_to='background_index', null=True)
-    created_by = models.ForeignKey(User, related_name='siteinfo_created_by', on_delete=models.CASCADE)
 
-    
     date_add = models.DateTimeField( auto_now_add=True, null=True)
     date_update = models.DateTimeField(auto_now_add=True, null=True)
     status = models.BooleanField(default=True, blank=True)
@@ -43,7 +41,7 @@ class ReseauxSociau(models.Model):
     ]
     nom = models.CharField(choices=icons, max_length=50)
     lien = models.URLField(max_length=200)
-    created_by = models.ForeignKey(User, related_name='reseaux_created_by', on_delete=models.CASCADE)
+   
 
     date_add = models.DateTimeField( auto_now_add=True, null=True)
     date_update = models.DateTimeField(auto_now_add=True, null=True)
@@ -87,9 +85,7 @@ class Contact_info(models.Model):
     address = models.CharField(max_length=250)
     phone = models.CharField(max_length=150)
     emailAdress = models.CharField(max_length=50)
-    created_by = models.ForeignKey(User, related_name='contact_info_created_by', on_delete=models.CASCADE)
 
-    
     date_add = models.DateTimeField( auto_now_add=True, null=True)
     date_update = models.DateTimeField(auto_now_add=True, null=True)
     status = models.BooleanField(default=True, blank=True)
@@ -121,7 +117,7 @@ class Our_team(models.Model):
     nom = models.CharField(max_length=150)
     description = models.TextField()
     fonction = models.CharField(max_length=50, null=True)
-    created_by = models.ForeignKey(User, related_name='ourTeam_created_by', on_delete=models.CASCADE)
+
 
     
     date_add = models.DateTimeField( auto_now_add=True, null=True)

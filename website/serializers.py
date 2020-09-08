@@ -21,7 +21,6 @@ class Contact_infoSerializer(serializers.ModelSerializer):
         model = models.Contact_info
         fields = '__all__'
         
-
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Contact
