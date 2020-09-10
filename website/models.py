@@ -41,6 +41,7 @@ class ReseauxSociau(models.Model):
     ]
     nom = models.CharField(choices=icons, max_length=50)
     lien = models.URLField(max_length=200)
+    created_by = models.ForeignKey(User, related_name='created_by_User', on_delete=models.CASCADE, null=True)
    
 
     date_add = models.DateTimeField( auto_now_add=True, null=True)
@@ -118,8 +119,6 @@ class Our_team(models.Model):
     description = models.TextField()
     fonction = models.CharField(max_length=50, null=True)
 
-
-    
     date_add = models.DateTimeField( auto_now_add=True, null=True)
     date_update = models.DateTimeField(auto_now_add=True, null=True)
     status = models.BooleanField(default=True, blank=True)

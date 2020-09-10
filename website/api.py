@@ -7,7 +7,7 @@ from rest_framework import status
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.exceptions import PermissionDenied
-
+from . import models
 class Our_team(generics.ListCreateAPIView):
     queryset = models.Our_team.objects.all()
     serializer_class = serializers.Our_teamSerializer
@@ -29,10 +29,16 @@ class About(generics.ListCreateAPIView):
     queryset = models.About.objects.all()
     serializer_class = serializers.AboutSerializer
     def post(self, request, *args, **kwargs):
-        user=User
+        user = request.POST.get('username')
+        users = User.objects.filter(username=user)
+        if not users.count() == 1:
+            datas = {'success': False, 'message': 'username is not correct'}
+            return JsonResponse(datas)
+        else:
+            user = users.first()
         about = models.About.objects.get(pk=self.kwargs["pk"])
-        if not request.user == user.username:
-            raise PermissionDenied("You can not create an about.")
+        if not user.is_staff:
+            raise PermissionDenied("You can not create a about.")
         return super().post(request, *args, **kwargs)
 
 
@@ -40,10 +46,16 @@ class Contact_info(generics.ListCreateAPIView):
     queryset = models.Contact_info.objects.all()
     serializer_class = serializers.Contact_infoSerializer
     def post(self, request, *args, **kwargs):
-        user=User
+        user = request.POST.get('username')
+        users = User.objects.filter(username=user)
+        if not users.count() == 1:
+            datas = {'success': False, 'message': 'username is not correct'}
+            return JsonResponse(datas)
+        else:
+            user = users.first()
         info = models.Contact_info.objects.get(pk=self.kwargs["pk"])
-        if not request.user == user.username:
-            raise PermissionDenied("You can not create a contact_info.")
+        if not user.is_staff:
+            raise PermissionDenied("You can not create a about.")
         return super().post(request, *args, **kwargs)
 
 class Contact(generics.CreateAPIView):
@@ -54,22 +66,16 @@ class Contact(generics.CreateAPIView):
 class Newletter(generics.CreateAPIView):
     queryset = models.Newletter.objects.all()
     serializer_class = serializers.NewletterSerializer
-    def destroy(self, request, *args, **kwargs):
-        user=User
-        newletter = models.Newletter.objects.get(pk=self.kwargs["pk"])
-        if not request.user == user.username:
-            raise PermissionDenied("You can not delete this Newletter.")
-        return super().destroy(request, *args, **kwargs)
-
+    
 
 class ReseauxSociauViewSet(viewsets.ModelViewSet):
-    querryset = models.ReseauxSociau.objects.all()
+    queryset = models.ReseauxSociau.objects.all()
     serializer_class = serializers.ReseauxSociauSerializer
     def destroy(self, request, *args, **kwargs):
         user=User
-        newletter = models.Newletter.objects.get(pk=self.kwargs["pk"])
-        if not request.user == user.username:
-            raise PermissionDenied("You can not delete this Newletter.")
+        reseau = models.ReseauxSociau.objects.get(pk=self.kwargs["pk"])
+        if not request.user == reseau.created_by:
+            raise PermissionDenied("You can not delete this poll.")
         return super().destroy(request, *args, **kwargs)
 
 class UserCreate(generics.CreateAPIView):

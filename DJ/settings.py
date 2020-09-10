@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'showdj.apps.ShowdjConfig',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [

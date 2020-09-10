@@ -36,7 +36,7 @@ class ReseauxSociauAdmin(Action):
     date_hierarchy = 'date_add'
     list_display_links = ['nom']
     fieldsets = [
-    ('ReseauxSociau_infos', {'fields':['nom','lien']}),
+    ('ReseauxSociau_infos', {'fields':['nom','lien','created_by']}),
     ('standard', {'fields':['status']}),
     ]
 

@@ -6,7 +6,6 @@ urlpatterns = [
 
 # Routes API
 
-
-    path('show/<int:pk>', api.Show, name='show')
+    path('shows/<int:pk>', api.Show.as_view(), name='shows')
 
     ]
