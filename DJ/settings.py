@@ -27,9 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-import django_heroku
 
-django_heroku.settings(locals())
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,6 +45,8 @@ INSTALLED_APPS = [
     'drf_yasg'
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -55,12 +55,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'DJ.urls'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 TEMPLATES = [
     {
@@ -145,3 +145,7 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT= os.path.join(BASE_DIR, 'static_cdn')
 MEDIA_ROOT= os.path.join(BASE_DIR, 'media_cdn')
+
+import django_heroku
+
+django_heroku.settings(locals())
