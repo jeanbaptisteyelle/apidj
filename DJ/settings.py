@@ -25,9 +25,11 @@ SECRET_KEY = 'n@r=iw(3o_hvud**!53qabp(^wnj)u=$n0wj7kn19d81#2tgz*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+import django_heroku
 
+django_heroku.settings(locals())
 # Application definition
 
 INSTALLED_APPS = [

@@ -1,1 +1,1 @@
-web:gunicorn DJ.wsgi
+web: gunicorn DJ.wsgi
