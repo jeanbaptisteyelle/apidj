@@ -72,10 +72,16 @@ class ReseauxSociauViewSet(viewsets.ModelViewSet):
     queryset = models.ReseauxSociau.objects.all()
     serializer_class = serializers.ReseauxSociauSerializer
     def destroy(self, request, *args, **kwargs):
-        user=User
+        user = request.POST.get('username')
+        users = User.objects.filter(username=user)
+        if not users.count() == 1:
+            datas = {'success': False, 'message': 'username is not correct'}
+            return JsonResponse(datas)
+        else:
+            user = users.first()
         reseau = models.ReseauxSociau.objects.get(pk=self.kwargs["pk"])
-        if not request.user == reseau.created_by:
-            raise PermissionDenied("You can not delete this poll.")
+        if not user.is_staff :
+            raise PermissionDenied("You can not delete this reseaux sociaux.")
         return super().destroy(request, *args, **kwargs)
 
 class UserCreate(generics.CreateAPIView):
