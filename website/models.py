@@ -13,18 +13,18 @@ class Siteinfo(models.Model):
     description_about = models.TextField()
     titre_contact = models.CharField(max_length=150)
     description_contact = models.TextField()
-    titre_dj = models.CharField(max_length=150, null=True)
+    titre_dj = models.CharField(max_length=150)
     description_dj = models.TextField(null=True)
-    titre_single = models.CharField(max_length=150, null=True)
+    titre_single = models.CharField(max_length=150)
     copyrights = models.CharField(max_length=150)
     about_footer_description = models.TextField()
     image_video_footer =models.ImageField(upload_to='image/footer')
     lien_video_footer = models.URLField(max_length=200)
-    bg_index = models.ImageField(upload_to='background_index', null=True)
+    bg_index = models.ImageField(upload_to='background_index')
 
-    date_add = models.DateTimeField( auto_now_add=True, null=True)
-    date_update = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.BooleanField(default=True, blank=True)
+    date_add = models.DateTimeField( auto_now_add=True)
+    date_update = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=True)
     class Meta:
         verbose_name = "Siteinfo"
         verbose_name_plural = "Siteinfos"
@@ -41,12 +41,12 @@ class ReseauxSociau(models.Model):
     ]
     nom = models.CharField(choices=icons, max_length=50)
     lien = models.URLField(max_length=200)
-    created_by = models.ForeignKey(User, related_name='created_by_User', on_delete=models.CASCADE, null=True)
+    created_by = models.ForeignKey(User, related_name='created_by_User', on_delete=models.CASCADE)
    
 
-    date_add = models.DateTimeField( auto_now_add=True, null=True)
-    date_update = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.BooleanField(default=True, blank=True)
+    date_add = models.DateTimeField( auto_now_add=True)
+    date_update = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=True)
     class Meta:
         verbose_name = "ReseauxSociau"
         verbose_name_plural = "ReseauxSociaux"
@@ -56,9 +56,9 @@ class ReseauxSociau(models.Model):
 class Newletter(models.Model):
     email = models.EmailField(max_length=254)
 
-    date_add = models.DateTimeField( auto_now_add=True, null=True)
-    date_update = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.BooleanField(default=True, blank=True)
+    date_add = models.DateTimeField( auto_now_add=True)
+    date_update = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=True)
     class Meta:
         verbose_name = "Newletter"
         verbose_name_plural = "Newletters"
@@ -72,9 +72,9 @@ class Contact(models.Model):
     subjects = models.CharField(max_length=250)
     message = models.TextField()
 
-    date_add = models.DateTimeField( auto_now_add=True, null=True)
-    date_update = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.BooleanField(default=True, blank=True)
+    date_add = models.DateTimeField( auto_now_add=True)
+    date_update = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=True)
     class Meta:
         verbose_name = "Contact"
         verbose_name_plural = "Contacts"
@@ -87,9 +87,9 @@ class Contact_info(models.Model):
     phone = models.CharField(max_length=150)
     emailAdress = models.CharField(max_length=50)
 
-    date_add = models.DateTimeField( auto_now_add=True, null=True)
-    date_update = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.BooleanField(default=True, blank=True)
+    date_add = models.DateTimeField( auto_now_add=True)
+    date_update = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=True)
     class Meta:
         verbose_name = "Contact_info"
         verbose_name_plural = "Contact_infos"
@@ -103,9 +103,9 @@ class About(models.Model):
     lien = models.URLField(max_length=200)
     image = models.ImageField(upload_to='image/about')
 
-    date_add = models.DateTimeField( auto_now_add=True, null=True)
-    date_update = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.BooleanField(default=True, blank=True)
+    date_add = models.DateTimeField( auto_now_add=True)
+    date_update = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=True)
     class Meta:
         verbose_name = "About"
         verbose_name_plural = "Abouts"
@@ -117,11 +117,11 @@ class Our_team(models.Model):
     image = models.ImageField(upload_to='image/our_team')
     nom = models.CharField(max_length=150)
     description = models.TextField()
-    fonction = models.CharField(max_length=50, null=True)
+    fonction = models.CharField(max_length=50)
 
-    date_add = models.DateTimeField( auto_now_add=True, null=True)
-    date_update = models.DateTimeField(auto_now_add=True, null=True)
-    status = models.BooleanField(default=True, blank=True)
+    date_add = models.DateTimeField( auto_now_add=True)
+    date_update = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Our_team"

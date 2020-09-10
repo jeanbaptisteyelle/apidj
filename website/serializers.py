@@ -24,8 +24,9 @@ class Contact_infoSerializer(serializers.ModelSerializer):
 class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Contact
-        fields = '__all__'
+        fields = ('full_name', 'email', 'subjects', 'message')
 
+        
 class NewletterSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Newletter
